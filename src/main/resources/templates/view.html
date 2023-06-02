@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="main_layout.html">
+
+<div layout:fragment="siteContent" style="">
+
+  <div class="row gx-3">
+
+
+    <!-- ------------------------------------Шапка-------------------------------------------------- -->
+
+    <div class="container-fluid">
+
+      <div class="row-cols-1 mb-1" style="font-weight: bold">FOLDER NAME:</div>
+      <div class="row-cols-1 mb-3">
+        <input class="form-control" type="text" th:value="${task.folder.name}" disabled>
+      </div>
+
+      <div class="row-cols-1 mb-1" style="font-weight: bold">TASK NAME:</div>
+      <div class="row-cols-1 mb-3">
+        <input class="form-control" type="text" th:value="${task.title}" disabled>
+      </div>
+
+      <div class="row-cols-1 mb-1" style="font-weight: bold">TASK DESCRIPTION:</div>
+      <div class="row-cols-1 mb-3">
+        <textarea class="form-control" name="description" cols="30" rows="7" th:text="${task.description}" disabled>
+
+        </textarea>
+      </div>
+
+      <div class="row-cols-1 mb-1" style="font-weight: bold">TASK STATUS:</div>
+      <div class="row-cols-1 mb-2">
+        <select class="form-select" name="status" disabled>
+          <option value="0" th:selected="${task.status == 0}">TO DO</option>
+          <option value="1" th:selected="${task.status == 1}">IN TEST</option>
+          <option value="2" th:selected="${task.status == 2}">DONE</option>
+          <option value="3" th:selected="${task.status == 3}">FAILED</option>
+        </select>
+      </div>
+
+
+      <div class="row mt-3">
+        <div class="col-2">
+          <button type="button" class="btn btn-primary" style="width: 200px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            EDIT
+          </button>
+        </div>
+
+        <div class="col-2">
+            <button type="button" class="btn btn-danger"
+                    style="width: 200px" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+              DELETE
+            </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel2">DELETE TASK</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  ARE YOU SURE?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <form action="/delete-task" method="post">
+                    <input type="hidden" name="id" th:value="${task.id}">
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT TASK</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/update-task" method="post">
+            <div class="modal-body">
+                <div class="row-cols-1 mb-1">TASK NAME:</div>
+                <div class="row-cols-1 mb-3">
+                  <input class="form-control" name="title" type="text" th:value="${task.title}" >
+                </div>
+
+                <div class="row-cols-1 mb-1">TASK DESCRIPTION:</div>
+                <div class="row-cols-1 mb-3">
+        <textarea class="form-control" name="description" cols="30" rows="7" th:text="${task.description}" >
+
+        </textarea>
+                </div>
+
+                <div class="row-cols-1 mb-1">TASK STATUS:</div>
+                <div class="row-cols-1 mb-2">
+                  <select class="form-select" name="status" required>
+                    <option value="0" th:selected="${task.status == 0}">TO DO</option>
+                    <option value="1" th:selected="${task.status == 1}">IN TEST</option>
+                    <option value="2" th:selected="${task.status == 2}">DONE</option>
+                    <option value="3" th:selected="${task.status == 3}">FAILED</option>
+                  </select>
+                </div>
+              <input type="hidden" name="folder" th:value="${task.folder.id}">
+              <input type="hidden" name="id" th:value="${task.id}">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">EDIT</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+</html>

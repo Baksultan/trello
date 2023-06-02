@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head th:insert="head.html">
+    </head>
+    <body>
+        <div class="container" style="">
+            <div class="container-fluid">
+                <div th:insert="navbar.html">
+                </div>
+            </div>
+            <div class="container mt-5" style="min-height: 800px;">
+                <div layout:fragment="siteContent">
+                </div>
+            </div>
+
+        </div>
+        <div th:insert="footer.html">
+        </div>
+    </body>
+</html>
